@@ -175,3 +175,7 @@ a.dropdown-item:hover{
     align-items: center;
     justify-content: center;
 }
+
+.quantity select{
+    text-indent: 0;
+}

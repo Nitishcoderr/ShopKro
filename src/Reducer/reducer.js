@@ -1,3 +1,5 @@
+import { ADD_TO_CART, CHANGED_QUANTITY, CHANGE_ORDER_CART } from "../action";
+
 const initialStateProduct = {
     products:[
       {id:1,
@@ -49,10 +51,52 @@ const initialStateProduct = {
   },
   ]
   }
+
+  const initialStateCart={
+    items:[]
+  }
+
+  const initialStateOrder={
+    items:[],
+    shipping_charge:50,
+    discount_in_percent:10,
+    shipping_address:''
+  }
   
   const productReducer=(state=initialStateProduct,action)=>{
     return state;
   }
+
+  const cartReducer=(state=initialStateCart,action)=>{
+    switch (action.type) {
+        case ADD_TO_CART:
+            if(state.items.find((item)=>item.id===action.payload.id)){
+                return state;
+            }
+            return {...state,items:[...state.items,{...action.payload,quantity:1}]}
+
+            case CHANGED_QUANTITY:
+                const oldItem = state.items.find((item)=>item.id===action.payload.id)
+                let index = state.items.indexOf(oldItem)
+                const newItems = [...state.items]
+                newItems[index]=action.payload
+                return {...state,items:newItems}
+            
+        default:
+            return state;
+    }
+  }
+  const OrderReducer=(state=initialStateOrder,action)=>{
+    switch (action.type) {
+       case CHANGE_ORDER_CART:
+        return {...state,items:action.payload}
+    
+        default:
+            return state;
+    }
+  }
+
+
   
 
-  export {productReducer}
+  export {productReducer,cartReducer,OrderReducer}
