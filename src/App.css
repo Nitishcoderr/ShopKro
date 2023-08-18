@@ -1,0 +1,177 @@
+body{
+    min-height: 100vh;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.rating-stars{
+    color: rgb(235, 185, 92);
+    
+}
+.product-item{
+    max-width: 300px;
+    margin: auto;
+    margin-bottom: 1rem;
+    transition: 0.5s;
+}
+.product-item:hover{
+    transform: scale(1.1);
+}
+
+.footer-items{
+    color: #ccc;
+
+}
+
+.footer-items ul{
+    list-style: none;
+    padding: 0;
+    font-size: 0.8rem;
+}
+.footer-items a{
+    text-decoration: none;
+    color: #ccc;
+}
+.footer-items h5{
+    color: white;
+    font-size: 1.2rem;
+}
+.footer-items a:hover{
+    text-decoration-line: underline;
+    color: #ccc;
+}
+.subscribe input,.subscribe button{
+    border-radius: 0;
+}
+.breadcrumb{
+    background-color: #eee;
+}
+
+.order , .cart-item{
+    border: 1px solid black;
+}
+
+.product-small img{
+    max-width: 10rem;
+    padding: 0.5rem;
+}
+
+.close i{
+    font-size: 1.5rem;
+
+}
+.close i:hover{
+    color: red;
+
+}
+
+.login-box{
+    background-color: #eee;
+    padding: 2rem;
+    border: 20px;
+
+}
+.success-icon{
+    font-size: 5rem;
+}
+
+#carouselExampleDark img{
+    max-height: 90vh;
+}
+
+.color-label{
+    border-radius: 50% !important;
+    margin: 5px;
+}
+
+.color-label i{
+    opacity: 0;
+}
+
+.btn-check:checked+.color-label i{
+    opacity: 1;
+}
+.text-small{
+    font-size: 0.8rem;
+}
+
+.accordion-body{
+    font-size: 0.8rem;
+    color: gray;
+}
+.accordion-header button:not(.collapsed){
+
+    color: white;
+    background-color: black;
+}
+.accordion-header button{
+    padding: 5px;
+}
+
+.breadcrumb-item a{
+    text-decoration: none;
+}
+
+.cart-badge{
+    position: relative;
+    top: -13px;
+    left: -10px;
+}
+
+.search-form input, .search-form button{
+    border-radius: 0;
+}
+
+.nav-item:hover{
+    background-color:#ffffff66 ;
+}
+
+
+a.dropdown-item{
+    color: white !important;
+    text-decoration: none;
+}
+a.dropdown-item:hover{
+    color: black !important;
+}
+
+.carousel-caption{
+    background-color: #ffffff66;
+}
+
+.card-text.price{
+    color:rgb(205, 137, 10) ;
+}
+
+.like,.liked{
+    z-index: 10;
+    top: 1rem;
+    left: 2rem;
+    font-size: 1.5rem;
+    color: grey;
+}
+
+.liked{
+    z-index: 11;
+    opacity: 0;
+}
+.like:hover{
+    opacity: 0;
+}
+
+.liked:hover{
+    color: red;
+    opacity: 1;
+}
+
+
+
+.social-icons i{
+    font-size: 1.4rem;
+}
+.social-icons button{
+    border-radius: 50% !important;
+    width: 2.4rem;
+    height: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
