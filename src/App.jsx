@@ -1,13 +1,15 @@
+import { useSelector } from 'react-redux'
 import './App.css'
 import ProductList from './component/ProductList'
-import db from './component/database'
+
 
 
 function App() {
+  const products = useSelector(state=>state.product.products)
 
   return (
 <>
-<ProductList products={db.products}/>
+<ProductList products={products}/>
 </>
   )
 }

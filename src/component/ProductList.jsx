@@ -8,7 +8,7 @@ const ProductList = ({products,addToCart}) => {
       id="products">
         {
             products.map(product =>
-                <div className="col-xl-3 col-lg-4 col-md-6 position-relative">
+                <div key={product.id} className="col-xl-3 col-lg-4 col-md-6 position-relative">
                 <div className="card product-item">
                   <i className="bi bi-heart-fill position-absolute liked"></i>
                   <i className="bi bi-heart-fill position-absolute like"></i>
