@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import Navbar from '../component/Navbar'
 import Footer from '../component/Footer'
-import {  } from '../action'
+import { ADD_ADDRESS, EMPTY_CART, PLACE_ORDER, SET_SHIP_ADDRESS } from '../action'
 import Checkout from '../component/Checkout'
 
 
@@ -14,15 +14,27 @@ const CheckoutPage = () => {
     const user = useSelector(state=>state.user)
 
 // function for Adding address
-const addAddress=()=>{
-// 
+const addAddress=(address)=>{
+ dispatch({type:ADD_ADDRESS,payload:address})
+}
+  
+const setShipAddress=(address)=>{
+ dispatch({type:SET_SHIP_ADDRESS,payload:address})
+}
+const placeorder=()=>{
+  if(order.shipping_address){
+    dispatch({type:PLACE_ORDER,payload:order})
+    dispatch({type:EMPTY_CART})
+  }else{
+    alert('Choose a shipping address')
+  }
 }
   
 
   return (
     <>
     <Navbar cartCount={cartItems.length} /> 
-     <Checkout order={order} user={user} addAddress={addAddress}/>
+     <Checkout order={order} user={user} addAddress={addAddress} setShipAddress={setShipAddress} placeorder={placeorder} />
      <Footer/> 
     </>
   )

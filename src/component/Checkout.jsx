@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Checkout = ({order,user,addAddress}) => {
+const Checkout = ({ order, user, addAddress,setShipAddress,placeorder }) => {
+  const blank_address = {first_name:'',last_name:'',phone:'',address1:'',address2:'',country:'',state:'',pin_code:''}
+  const [address, setAddress] = useState(blank_address)
 
+  const validateAddress=()=>{
+    if(!address.first_name ||!address.last_name || !address.address1 || !address.country || !address.state || !address.pin_code || !address.phone){
+      alert("Enter the required Field")
+    }else{
+      addAddress(address)
+      setAddress(blank_address)
+    }
+  }
   return (
     <>
       <div className="container mb-5">
@@ -34,40 +44,70 @@ const Checkout = ({order,user,addAddress}) => {
                   <div>
                     <small className="text-muted">Discount charge</small>
                   </div>
-                  <span className="text-muted">${order.total_cost*order.discount_in_percent/100}</span>
+                  <span className="text-muted">
+                    ${(order.total_cost * order.discount_in_percent) / 100}
+                  </span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between">
                   <span>Total (USD)</span>
-                  <strong>${order.total_cost - order.total_cost * order.discount_in_percent/100 + order.shipping_charge }</strong>
+                  <strong>
+                    $
+                    {order.total_cost -
+                      (order.total_cost * order.discount_in_percent) / 100 +
+                      order.shipping_charge}
+                  </strong>
                 </li>
               </ul>
+          { order.shipping_address.first_name  ? <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">
+                      {order.shipping_address.first_name} {order.shipping_address.last_name}
+                    </h5>
+                    <h6 className="card-subtitle mb-2 text-muted">
+                      {order.shipping_address.address1} {order.shipping_address.address2} {order.shipping_address.state} {order.shipping_address.country}{' '}
+                      {order.shipping_address.pin_code}
+                    </h6>
+                    <p className="card-text">{order.shipping_address.phone}</p>
+                  </div>
+                </div> : null }
             </div>
             <div className="col-md-7 col-lg-8">
               <h4 className="mb-3">Shipping address</h4>
-            { user.address.map(address=>  <div className="card">
-                <div className="card-body">
-                  <h5 className="card-title">{address.first_name} {address.last_name}</h5>
-                  <h6 className="card-subtitle mb-2 text-muted">{address.address1} {address.address2} {address.state} {address.country} {address.pin_code}</h6>
-                  <p className="card-text">{address.phone}</p>
-                  <input
-                    type="radio"
-                    name="address"
-                    id=""
-                  />
-                  Use this Address
+              {user.address.map((address) => (
+                <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">
+                      {address.first_name} {address.last_name}
+                    </h5>
+                    <h6 className="card-subtitle mb-2 text-muted">
+                      {address.address1} {address.address2} {address.state} {address.country}{' '}
+                      {address.pin_code}
+                    </h6>
+                    <p className="card-text">{address.phone}</p>
+                    <input
+                      type="radio"
+                      name="address"
+                      id=""
+                      onClick={e=>setShipAddress(address)}
+                    />
+                    Use this Address
+                  </div>
                 </div>
-              </div>)}
+              ))}
               <hr className="my-4" />
               <h5>OR</h5>
               <h4 className="mb-3">Add New Address</h4>
               <form
                 className="needs-validation"
-                novalidate=""
-                onSubmit={()=>{addAddress(address)}}>
+               noValidate=''
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  validateAddress(address);
+                }}>
                 <div className="row g-3">
                   <div className="col-sm-6">
                     <label
-                      for="firstName"
+                      htmlFor="firstName"
                       className="form-label">
                       First name
                     </label>
@@ -76,15 +116,15 @@ const Checkout = ({order,user,addAddress}) => {
                       className="form-control"
                       id="firstName"
                       placeholder=""
-                      value=""
-                      required=""
-                    />
+                      value={address.first_name}
+                      onChange={e => setAddress({...address,first_name: e.target.value})}
+                      required=""  />
                     <div className="invalid-feedback">Valid first name is required.</div>
                   </div>
 
                   <div className="col-sm-6">
                     <label
-                      for="lastName"
+                      htmlFor="lastName"
                       className="form-label">
                       Last name
                     </label>
@@ -93,14 +133,15 @@ const Checkout = ({order,user,addAddress}) => {
                       className="form-control"
                       id="lastName"
                       placeholder=""
-                      value=""
+                      value={address.last_name}
+                      onChange={e => setAddress({...address,last_name: e.target.value})}
                       required=""
                     />
                     <div className="invalid-feedback">Valid last name is required.</div>
                   </div>
                   <div className="col-12">
                     <label
-                      for="phone"
+                      htmlFor="phone"
                       className="form-label">
                       Phone <span className="text-muted"></span>
                     </label>
@@ -110,6 +151,8 @@ const Checkout = ({order,user,addAddress}) => {
                       id="phone"
                       required=""
                       placeholder="+91-999999999"
+                      value={address.phone}
+                      onChange={e => setAddress({...address,phone: e.target.value})}
                     />
                     <div className="invalid-feedback">
                       Please enter a valid Phone number for shipping updates.
@@ -118,7 +161,7 @@ const Checkout = ({order,user,addAddress}) => {
 
                   <div className="col-12">
                     <label
-                      for="address"
+                      htmlFor="address"
                       className="form-label">
                       Address
                     </label>
@@ -128,13 +171,15 @@ const Checkout = ({order,user,addAddress}) => {
                       id="address"
                       placeholder="1234 Main St"
                       required=""
+                      value={address.address1}
+                      onChange={e => setAddress({...address,address1: e.target.value})}
                     />
                     <div className="invalid-feedback">Please enter your shipping address.</div>
                   </div>
 
                   <div className="col-12">
                     <label
-                      for="address2"
+                      htmlFor="address2"
                       className="form-label">
                       Address 2 <span className="text-muted">(Optional)</span>
                     </label>
@@ -143,46 +188,58 @@ const Checkout = ({order,user,addAddress}) => {
                       className="form-control"
                       id="address2"
                       placeholder="Apartment or suite"
+                      value={address.address2}
+                      onChange={e => setAddress({...address,address2: e.target.value})}
                     />
                   </div>
 
                   <div className="col-md-5">
                     <label
-                      for="country"
+                      htmlFor="country"
                       className="form-label">
                       Country
                     </label>
                     <select
                       className="form-select"
                       id="country"
+                      value={address.country}
+                      onChange={e => setAddress({...address,country: e.target.value})}
                       required="">
                       <option value="">Choose...</option>
-                      <option>United States</option>
+                      <option>India</option>
                     </select>
                     <div className="invalid-feedback">Please select a valid country.</div>
                   </div>
 
                   <div className="col-md-4">
                     <label
-                      for="state"
+                      htmlFor="state"
                       className="form-label">
                       State
                     </label>
                     <select
                       className="form-select"
                       id="state"
-                      required="">
+                      required=""
+                      value={address.state}
+                      onChange={e => setAddress({...address,state: e.target.value})}
+                      >
                       <option value="">Choose...</option>
-                      <option>California</option>
+                      <option>Uttarpradesh</option>
+                      <option>New Delhi</option>
+                      <option>Haryana</option>
+                      <option>Pakistan</option>
+                      <option>Bihar</option>
+                      <option>Rajasthan</option>
                     </select>
                     <div className="invalid-feedback">Please provide a valid state.</div>
                   </div>
 
                   <div className="col-md-3">
                     <label
-                      for="zip"
+                      htmlFor="zip"
                       className="form-label">
-                      Zip
+                      Pin Code
                     </label>
                     <input
                       type="text"
@@ -190,23 +247,26 @@ const Checkout = ({order,user,addAddress}) => {
                       id="zip"
                       placeholder=""
                       required=""
+                      value={address.pin_code}
+                      onChange={e => setAddress({...address,pin_code: e.target.value})}
                     />
-                    <div className="invalid-feedback">Zip code required.</div>
+                    <div className="invalid-feedback">Pin code required.</div>
                   </div>
                 </div>
 
-
                 <hr className="my-4" />
 
-                <button className="w-100 btn btn-success my-4 btn-lg"
+                <button
+                  className="w-100 btn btn-success my-4 btn-lg"
                   type="submit">
                   Add Address
                 </button>
-                <button className="w-100 btn btn-primary btn-lg"
-                  type="submit">
-                  Continue to checkout
+                </form>
+                <button
+                  className="w-100 btn btn-primary btn-lg"
+                  type="submit" onClick={e=>placeorder()} >
+                  Place order
                 </button>
-              </form>
             </div>
           </div>
         </main>
