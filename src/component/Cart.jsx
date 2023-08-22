@@ -1,7 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const Cart = ({items,order,changeQuantity}) => {
-    const totalCost = order.items.reduce((total,item)=>total+item.price*item.quantity,0);
+
 
   return (
     <div className="container mb-5">
@@ -37,8 +38,12 @@ const Cart = ({items,order,changeQuantity}) => {
           <button className="btn btn-primary">Apply</button>
         </div>
         <div className="d-flex flex-row justify-content-between p-2">
+          <span className="billing-item">Items</span>
+          <span className="billing-cost">${order.total_items}</span>
+        </div>
+        <div className="d-flex flex-row justify-content-between p-2">
           <span className="billing-item">Items Coast</span>
-          <span className="billing-cost">${totalCost}</span>
+          <span className="billing-cost">${order.total_cost}</span>
         </div>
         <div className="d-flex flex-row justify-content-between p-2">
           <span className="billing-item">Shipping</span>
@@ -46,14 +51,14 @@ const Cart = ({items,order,changeQuantity}) => {
         </div>
         <div className="d-flex flex-row justify-content-between p-2">
           <span className="billing-item">Discount ({order.discount_in_percent}%)</span>
-          <span className="billing-cost">-${totalCost*order.discount_in_percent/100}</span>
+          <span className="billing-cost">-${order.total_cost*order.discount_in_percent/100}</span>
         </div>
         <div className="d-flex flex-row justify-content-between p-2">
           <span className="billing-item fs-5">Total</span>
-          <span className="billing-cost fs-5">${totalCost-totalCost*order.discount_in_percent/100+order.shipping_address}</span>
+          <span className="billing-cost fs-5">${order.total_cost-order.total_cost*order.discount_in_percent/100+order.shipping_address}</span>
         </div>
         <div className="d-flex mt-3">
-          <a href="./checkout.html" className="btn btn-primary flex-grow-1">Pay Now</a>
+          <Link to="/checkout" className="btn btn-primary flex-grow-1">Pay Now</Link>
         </div>
       </div>
     </div>
