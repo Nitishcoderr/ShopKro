@@ -3,7 +3,7 @@ import Navbar from '../component/Navbar'
 import Footer from '../component/Footer'
 import Cart from '../component/Cart'
 import { useEffect } from 'react'
-import { CHANGED_QUANTITY, CHANGE_ORDER_CART, REMOVE_ITEM } from '../action'
+import {REMOVE_ITEM, changeOrderWithCart, changeQuantityAC, removeItemAC} from '../action'
 
 const CartPage = () => {
     const dispatch = useDispatch()
@@ -12,15 +12,15 @@ const CartPage = () => {
 
 
   const changeQuantity = (quantity,item)=>{
-    dispatch({type:CHANGED_QUANTITY,payload:{...item,quantity:quantity}})
+    dispatch(changeQuantityAC({...item,quantity:quantity})) 
   }
 
   const removeItem=(item)=>{
-    dispatch({type:REMOVE_ITEM,payload:item})
+    dispatch(removeItemAC(item))
   }
 
   useEffect(() => {
-    dispatch({type:CHANGE_ORDER_CART,payload:cartItems})
+    dispatch(changeOrderWithCart(cartItems))
   }, [cartItems])
   
   return (

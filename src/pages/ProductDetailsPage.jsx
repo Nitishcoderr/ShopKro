@@ -3,7 +3,7 @@ import Navbar from '../component/Navbar'
 import Footer from '../component/Footer'
 import ProductDetails from '../component/ProductDetails'
 import { useParams } from 'react-router-dom'
-import { ADD_TO_CART } from '../action'
+import { addToCartAC } from '../action'
 
 
 const ProductDetailsPage = () => {
@@ -14,7 +14,7 @@ const ProductDetailsPage = () => {
     const product = products.find(p=>p.id==productId)
 
     const addToCart = (product)=>{
-      dispatch({type:ADD_TO_CART,payload:product})
+      dispatch(addToCartAC(product))
     }
 
   
