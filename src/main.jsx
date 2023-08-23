@@ -7,8 +7,10 @@ import { Provider } from 'react-redux'
 import { OrderReducer, cartReducer, productReducer, userReducer } from './Reducer/reducer.js'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import Home from './pages/Home.jsx'
-import CartPage from './component/CartPage.jsx'
 import CheckoutPage from './pages/CheckoutPage.jsx'
+import CartPage from './pages/CartPage.jsx'
+import OrderPage from './pages/OrderPage.jsx'
+import ProductDetailsPage from './pages/ProductDetailsPage.jsx'
 
 const store= configureStore(
   {
@@ -30,6 +32,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route index element={<Home/>}/>
         <Route path='/cart' element={<CartPage/>}/>
         <Route path='/checkout' element={<CheckoutPage/>}/>
+        <Route path='/myorders' element={<OrderPage/>}/>
+        <Route path='/product/:productId' element={<ProductDetailsPage/>}/>
       </Routes>
     </Router>
     </Provider>

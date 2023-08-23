@@ -80,32 +80,28 @@ const Navbar = ({cartCount}) => {
             </a>
             <ul className="dropdown-menu bg-dark text-light">
               <li>
-                <a
+                <Link
                   className="dropdown-item"
-                  href="/#"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                  >My Orders</a
-                >
+                  to="/myorders"
+                  >My Orders</Link>
               </li>
               <li>
-                <a
+                <Link
                   className="dropdown-item"
                   href="/#"
                   data-bs-toggle="modal"
                   data-bs-target="#exampleModal"
                   >Profile
-                </a>
+                </Link>
               </li>
               <li>
                 <hr className="dropdown-divider" />
               </li>
               <li>
-                <a
+                <Link
                   className="dropdown-item"
                   href="/#"
-                  >Logout</a
-                >
+                  >Logout</Link>
               </li>
             </ul>
           </li>
