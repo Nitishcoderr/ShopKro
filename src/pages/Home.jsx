@@ -3,9 +3,8 @@ import ProductList from '../component/ProductList'
 import Navbar from '../component/Navbar'
 import Crousel from '../component/Crousel'
 import Footer from '../component/Footer'
-import { addToCartAC, initializeProductsAC } from '../action'
+import { addToCartAC, initializeCartAC, initializeProductsAC, initializeUserAC } from '../action'
 import { useEffect } from 'react'
-ProductList
 
 
 const Home = () => {
@@ -18,6 +17,7 @@ const Home = () => {
     dispatch(addToCartAC(product))
   }
   useEffect(() => {
+    dispatch( initializeUserAC());
    dispatch( initializeProductsAC());
   }, [])
   
