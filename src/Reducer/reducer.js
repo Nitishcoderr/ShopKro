@@ -61,13 +61,13 @@ const productReducer = (state = initialStateProduct, action) => {
 const cartReducer = (state = initialStateCart, action) => {
     switch (action.type) {
         case ADD_TO_CART:
-            if (state.items.find((item) => item.id === action.payload.id)) {
+            if (state.items.find((item) => item._id === action.payload._id)) {
                 return state;
             }
             return { ...state, items: [...state.items, { ...action.payload, quantity: 1 }] }
 
         case CHANGED_QUANTITY:
-            const oldItem = state.items.find((item) => item.id === action.payload.id)
+            const oldItem = state.items.find((item) => item._id === action.payload._id)
             let index = state.items.indexOf(oldItem)
             const newItems = [...state.items]
             newItems[index] = action.payload
@@ -76,7 +76,7 @@ const cartReducer = (state = initialStateCart, action) => {
                 return {...state,items:[]}
                 case REMOVE_ITEM:
             const item = action.payload;
-            const i =  state.items.findIndex(it=>it.id===item.id)
+            const i =  state.items.findIndex(it=>it._id===item._id)
             const itemsArray = [...state.items]
             itemsArray.splice(i,1)
             return {...state,items:itemsArray}

@@ -6,11 +6,11 @@ const ProductList = ({ products, addToCart }) => {
     <div className="container mb-5 mt-5">
       <div className="row" id="products">
         {products.map((product) => (
-          <div key={product.id} className="col-xl-3 col-lg-4 col-md-6 position-relative">
+          <div key={product._id} className="col-xl-3 col-lg-4 col-md-6 position-relative">
             <div className="card product-item">
               <i className="bi bi-heart-fill position-absolute liked"></i>
               <i className="bi bi-heart-fill position-absolute like"></i>
-              <Link to={`/product/${product.id}`}>
+              <Link to={`/product/${product._id}`}>
                 {' '}
                 <img
                   src={`./images/${product.image}.jpg`}
