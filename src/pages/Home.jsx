@@ -3,7 +3,8 @@ import ProductList from '../component/ProductList'
 import Navbar from '../component/Navbar'
 import Crousel from '../component/Crousel'
 import Footer from '../component/Footer'
-import { addToCartAC } from '../action'
+import { addToCartAC, initializeProductsAC } from '../action'
+import { useEffect } from 'react'
 ProductList
 
 
@@ -16,7 +17,10 @@ const Home = () => {
   const addToCart = (product)=>{
     dispatch(addToCartAC(product))
   }
-
+  useEffect(() => {
+   dispatch( initializeProductsAC());
+  }, [])
+  
 
   return (
     <>

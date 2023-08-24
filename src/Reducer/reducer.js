@@ -1,57 +1,8 @@
-import { ADD_ADDRESS, ADD_TO_CART, CHANGED_QUANTITY, CHANGE_ORDER_CART, EMPTY_CART, PLACE_ORDER, REMOVE_ITEM, SET_SHIP_ADDRESS } from "../action";
+import { ADD_ADDRESS, ADD_TO_CART, CHANGED_QUANTITY, CHANGE_ORDER_CART, EMPTY_CART, INIT_PRODUCTS, PLACE_ORDER, REMOVE_ITEM, SET_SHIP_ADDRESS } from "../action";
 
 // initial product
 const initialStateProduct = {
-    products: [
-        {
-            id: 1,
-            name: 'Sony WX-5',
-            price: 100.75,
-            category: 'Headphone',
-            rating: 3,
-            color: 'red',
-            size: 'M',
-            details: {
-                product: '',
-                warrenty: '',
-                merchant: ''
-            },
-            image: 'product-1-square',
-            img: ['product-1', 'product-1-2', 'product-1-3']
-        },
-        {
-            id: 2,
-            name: 'Apple Watch 2',
-            price: 500.75,
-            category: 'SmartWatch',
-            rating: 4,
-            color: 'black',
-            size: 'M',
-            details: {
-                product: '',
-                warrenty: '',
-                merchant: ''
-            },
-            image: 'product-2-square',
-            img: ['product-2', 'product-2-2', 'product-2-3']
-        },
-        {
-            id: 3,
-            name: 'Apple iPhone 11',
-            price: 700.75,
-            category: 'Mobile',
-            rating: 4,
-            color: 'black',
-            size: '',
-            details: {
-                product: '',
-                warrenty: '',
-                merchant: ''
-            },
-            image: 'product-3-square',
-            img: ['product-3', 'product-3-2', 'product-3-3']
-        },
-    ]
+    products: []
 }
 // initial cart
 const initialStateCart = {
@@ -98,7 +49,12 @@ const initialStateUser = {
 
 //   product reducer
 const productReducer = (state = initialStateProduct, action) => {
-    return state;
+    switch(action.type){
+        case INIT_PRODUCTS:
+        return{...state,products:action.payload}
+        default:
+        return state;
+    }
 }
 
 //   Cart reducer
