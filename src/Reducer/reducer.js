@@ -61,10 +61,8 @@ const productReducer = (state = initialStateProduct, action) => {
 const cartReducer = (state = initialStateCart, action) => {
     switch (action.type) {
         case ADD_TO_CART:
-            if (state.items.find((item) => item._id === action.payload._id)) {
-                return state;
-            }
-            return { ...state, items: [...state.items, { ...action.payload, quantity: 1 }] }
+            
+            return {...state, items:action.payload.items}
 
         case CHANGED_QUANTITY:
             const oldItem = state.items.find((item) => item._id === action.payload._id)
